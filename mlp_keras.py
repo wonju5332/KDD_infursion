@@ -4,7 +4,7 @@ from keras.optimizers import SGD
 from keras.optimizers import RMSprop
 
 
-from dataset.data_wrangling import *
+from data_wrangling import *
 
 
 n_in = len(X_train[0])

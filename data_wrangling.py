@@ -36,11 +36,16 @@ binary_dict = {'DoS' : 1,  'normal':0, 'Probe':1 ,'R2L':1, 'U2R':1}
 
 
 def _data_load():
-    df = pd.read_csv(FILE_PATH + 'KDDTrain+.txt', header=None)
-    df2 = pd.read_csv(FILE_PATH + 'KDDTest+.txt', header=None)
-    df3 = pd.read_csv(FILE_PATH + 'KDDTest-21.txt', header=None)
-    result = df.append(df2)
-    result.append(df3)
+    '''
+    '''
+    cnt = 0
+    file_list = ['KDDTrain+','KDDTest+', 'KDDTest-21']
+    for name in file_list:
+        if cnt < 1:
+            result = pd.read_csv(FILE_PATH+name+'.txt', header=None)
+            cnt += 1
+        else:
+            result.append(pd.read_csv(FILE_PATH+name+'.txt', header=None))
     result = result.iloc[:, 0:42]  # 끝행 지우기
     return result
 
