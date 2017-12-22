@@ -33,7 +33,7 @@ FILE_PATH = './kdd/'
 dummy_list = ['protocol_type','service','flag']
 log_scaling_list = ['duration','src_bytes','dst_bytes']
 binary_dict = {'DoS' : 1,  'normal':0, 'Probe':1 ,'R2L':1, 'U2R':1}
-
+multi_classify_dict = {'DoS' : 1,  'normal':0, 'Probe':2 ,'R2L':3, 'U2R':4}
 
 def _data_load():
     '''
@@ -75,7 +75,8 @@ df['labels'] = df['labels'].map(attack_dict)  # 위협 별 종류 맵핑  ex) ps
 df = _concat_dummy(df, dummy_list) # 더미변수처리
 df[log_scaling_list].apply(lambda x:np.log(x+0.1)) #로그스케일 처리
 new_df = _min_max_scalier(df)
-y_ = one_hot_encoder(df, binary_dict)
+# y_ = one_hot_encoder(df, binary_dict)
+y_ = one_hot_encoder(df, multi_classify_dict)
 
 
 X_train, X_test, y_train, y_test = train_test_split(new_df, y_, test_size = 0.33, random_state = 42)
